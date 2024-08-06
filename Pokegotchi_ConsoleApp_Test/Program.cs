@@ -1,27 +1,15 @@
-﻿using RestSharp;
+﻿using Pokegotchi_ConsoleApp_Test.Controllers;
+using Pokegotchi_ConsoleApp_Test.Models;
+using Pokegotchi_ConsoleApp_Test.Views;
+using RestSharp;
 using System.Text.Json;
 
-RestResponse response = GetPokemon(1);
-
-Pokemon pokemon = JsonSerializer.Deserialize<Pokemon>(response.Content);
-
-Console.WriteLine($"Id: {pokemon.id}, Nome: {pokemon.name}, Altura: {pokemon.height}, Peso: {pokemon.weight}");
-
-//Console.WriteLine(response.Content);
-
-RestResponse GetPokemon(int id)
+class Program
 {
-    var client = new RestClient($"https://pokeapi.co/api/v2/pokemon/{id}");
+    static void Main()
+    {
+        PokegotchiController pokegotchiController = new PokegotchiController();
 
-    var request = new RestRequest();
-
-    return client.Execute(request);
-}
-
-public class Pokemon
-{
-    public int id { get; set; }
-    public string name { get; set; }
-    public int height { get; set; }
-    public int weight { get; set; }
+        pokegotchiController.Jogar();
+    }
 }
